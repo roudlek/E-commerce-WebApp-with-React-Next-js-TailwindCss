@@ -6,11 +6,11 @@ export default function ProductList({
   products,
   addProductToCart,
   productsInCart,
+  updateProductQuantity,
+  removeProductFromCart
 }) {
   return (
     <>
-      <ProductCart productsInCart={productsInCart} />
-
       <div class="text-center p-10">
         <h1 class="font-bold text-4xl mb-4">Responsive Product card grid</h1>
         <h1 class="text-3xl">Tailwind CSS</h1>
@@ -25,6 +25,8 @@ export default function ProductList({
               <div key={product.id}>
                 <ProductItem
                   addProductToCart={addProductToCart}
+
+
                   id={product.id}
                   title={product.title}
                   price={product.price}
@@ -33,6 +35,7 @@ export default function ProductList({
                   image={product.image}
                   rate={product.rating.rate}
                   count={product.rating.count}
+                  quantity={product.quantity}
                 />
               </div>
             );

@@ -3,9 +3,14 @@ import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 
-export default function ProductCart({ productsInCart }) {
-  const [open, setOpen] = useState(false);
-  const [quantity, setQuantity] = useState(0);
+export default function ProductCart({
+  productsInCart,
+  open,
+  setOpen,
+  removeProductFromCart,
+  updateProductQuantity,
+}) {
+  // const [quantity, setQuantity] = useState(0);
 
   return (
     <div className="relative h-10 w-full bg-gray-500 ">
@@ -71,52 +76,89 @@ export default function ProductCart({ productsInCart }) {
                               role="list"
                               className="-my-6 divide-y divide-gray-200"
                             >
-                              {productsInCart.map((product) => (
-                                <li key={product.id} className="flex py-6">
-                                  <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                                    <Image
-                                      src={product.image}
-                                      alt={product.description}
-                                      width={96}
-                                      height={96}
-                                      className="h-full w-full object-cover object-center"
-                                    />
-                                  </div>
-
-                                  <div className="ml-4 flex flex-1 flex-col">
-                                    <div>
-                                      <div className="flex justify-between text-base font-medium text-gray-900">
-                                        <h3>
-                                          <a href={product.href}>
-                                            {product.title}
-                                          </a>
-                                        </h3>
-                                        <p className="ml-4">{product.price}$</p>
-                                      </div>
-                                      <p className="mt-1 text-sm text-gray-500">
-                                        Color
-                                        {/* {product.color} */}
-                                      </p>
+                              {/* Map only non-repetitive items */}
+                              {[
+                                ...new Set(
+                                  productsInCart.map((product) => product.id)
+                                ),
+                              ].map((productId) => {
+                                const product = productsInCart.find(
+                                  (item) => item.id === productId
+                                );
+                                return (
+                                  <li key={product.id} className="flex py-6">
+                                    <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                                      <Image
+                                        src={product.image}
+                                        alt={product.description}
+                                        width={96}
+                                        height={96}
+                                        className="h-full w-full object-cover object-center"
+                                      />
                                     </div>
-                                    <div className="flex flex-1 items-end justify-between text-sm">
-                                      <button className="w-5 h-5 bg-gray-200 hover:bg-gray-300" onClick={()=>{ if(quantity > 1){setQuantity(quantity - 1)}}}> - </button>
-                                      <p className="text-gray-500">
-                                        Qty {quantity}
-                                      </p>
-                                      <button className="w-5 h-5 bg-gray-200 hover:bg-gray-300" onClick={()=>setQuantity(quantity + 1)}> + </button>
 
-                                      <div className="flex">
+                                    <div className="ml-4 flex flex-1 flex-col">
+                                      <div>
+                                        <div className="flex justify-between text-base font-medium text-gray-900">
+                                          <h3>
+                                            <a href={product.href}>
+                                              {product.title}
+                                            </a>
+                                          </h3>
+                                          <p className="ml-4">
+                                            {product.price}$
+                                          </p>
+                                        </div>
+                                        <p className="mt-1 text-sm text-gray-500">
+                                          Color
+                                          {/* {product.color} */}
+                                        </p>
+                                      </div>
+                                      <div className="flex flex-1 items-end justify-between text-sm">
                                         <button
-                                          type="button"
-                                          className="font-medium text-indigo-600 hover:text-indigo-500"
+                                          className="w-5 h-5 bg-gray-200 hover:bg-gray-300"
+                                          onClick={() =>
+                                            updateProductQuantity(
+                                              product.id,
+                                              product.quantity - 1
+                                            )
+                                          }
                                         >
-                                          Remove
+                                          {" "}
+                                          -{" "}
                                         </button>
+                                        <p className="text-gray-500">
+                                          Qty {product.quantity || 1}
+                                        </p>
+                                        <button
+                                          className="w-5 h-5 bg-gray-200 hover:bg-gray-300"
+                                          onClick={() =>
+                                            updateProductQuantity(
+                                              product.id,
+                                              product.quantity + 1
+                                            )
+                                          }
+                                        >
+                                          {" "}
+                                          +{" "}
+                                        </button>
+
+                                        <div className="flex">
+                                          <button
+                                            type="button"
+                                            className="font-medium text-indigo-600 hover:text-indigo-500"
+                                            onClick={() =>
+                                              removeProductFromCart(product.id)
+                                            }
+                                          >
+                                            Remove
+                                          </button>
+                                        </div>
                                       </div>
                                     </div>
-                                  </div>
-                                </li>
-                              ))}
+                                  </li>
+                                );
+                              })}
                             </ul>
                           </div>
                         </div>

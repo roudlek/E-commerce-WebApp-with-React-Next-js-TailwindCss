@@ -2,9 +2,12 @@
 
 import { useEffect, useState } from "react";
 import ProductList from "../../components/ProductList";
+import ProductCart from "@/components/ProductCart";
 
 export default function Products() {
   const [productsInCart, setProductsInCart] = useState([]);
+  const [open, setOpen] = useState(false);
+
   // const [products, setProducts] = useState([]);
 
   // const [getCartText, setCartText] = useState('');
@@ -96,15 +99,21 @@ export default function Products() {
   ];
 
   function addProductToCart(newProduct) {
-    // Check if the item already exists in the cart
     const existingProduct = productsInCart.find(
-      (product) => product.id === newProduct.id
+      (product) => product.id === NaN
     );
+    console.log("is product existing : " + existingProduct);
+    // Check if the item already exists in the cart
+    // const existingProduct = productsInCart.find(
+    //   (product) => product.id === newProduct.id
+    // );
 
     // If the item exists, update its quantity
-    if (existingProduct) {
-      updateProductQuantity(newProduct.id, existingProduct.quantity + 1);
+    if (existingProduct === true && existingProduct !== undefined) {
+      updateProductQuantity(existingProduct.id, existingProduct.quantity + 1);
+      console.log("existing product quantity has been updated");
     } else {
+      console.log("a new product will be added");
       setProductsInCart((prevProductsInCart) => [
         ...prevProductsInCart,
         {
@@ -116,31 +125,40 @@ export default function Products() {
           image: newProduct[5],
           rate: newProduct[6],
           count: newProduct[7],
+          quantity: parseInt(newProduct[8]) || 1,
         },
       ]);
     }
   }
 
-  function calculateSum() {}
+  function removeProductFromCart(productId) {
+    // Filter out the item to be removed
+    const updatedCart = productsInCart.filter((product) => {
+      if (product.id !== productId) {
+        return true; // Keep the product in the cart
+      } else {
+        return false; // Exclude the product with the specified ID
+      }
+    });
 
-  function removeProductEntirelyFromCart(productId) {
-        // Filter out the item to be removed
-        const updatedCart = productsInCart.filter(
-          (product) => product.id !== productId
-        );
-    
-        setProductsInCart(updatedCart);
-    // using an x button from ProductCart
+    setProductsInCart(updatedCart);
   }
 
   function updateProductQuantity(productId, newQuantity) {
     // Find the item to update
-    const updatedCart = productsInCart.map((product) =>
-      product.id === productId ? { ...product, quantity: newQuantity } : product
-    );
+    const updatedCart = productsInCart.map((product) => {
+      if (product.id === productId) {
+        product.quantity++;
+        return { ...product, quantity: newQuantity || 1 };
+      } else {
+        return product;
+      }
+    });
 
     setProductsInCart(updatedCart);
   }
+
+  function calculateSum() {}
 
   // function minusOneQuantityOfSameProduct() {
   //   // using a minus sign in product cart
@@ -152,8 +170,18 @@ export default function Products() {
 
   return (
     <>
+      <ProductCart
+        productsInCart={productsInCart}
+        open={open}
+        setOpen={setOpen}
+        removeProductFromCart={removeProductFromCart}
+        updateProductQuantity={updateProductQuantity}
+      />
+
       <ProductList
         addProductToCart={addProductToCart}
+        removeProductFromCart={removeProductFromCart}
+        updateProductQuantity={updateProductQuantity}
         products={products}
         productsInCart={productsInCart}
       />
