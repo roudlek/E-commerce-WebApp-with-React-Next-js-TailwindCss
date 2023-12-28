@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function ProductItem({
   id,
@@ -7,15 +8,13 @@ export default function ProductItem({
   description,
   category,
   image,
-  rate,
-  count,
-  quantity,
+  rating,
   addProductToCart,
 }) {
   return (
     <>
       <div className="w-72 bg-white shadow-md rounded-xl duration-300 hover:scale-105 hover:shadow-xl">
-        <a href="#">
+        <Link href={`/products/${id}`}>
           <Image
             className="h-80 w-72 object-cover rounded-t-xl"
             src={image}
@@ -23,11 +22,11 @@ export default function ProductItem({
             width={288}
             height={320}
           />
-        </a>
+        </Link>
         <div className="px-4 py-3 w-72">
           <span className="text-gray-400 mr-3 uppercase text-xs">Brand</span>
           <p className="text-lg font-bold text-black truncate block capitalize">
-            Product Name
+          {title}
           </p>
           <div className="flex items-center">
             <p className="text-lg font-semibold text-black cursor-auto my-3">
@@ -46,21 +45,16 @@ export default function ProductItem({
                 stroke-width="1.5"
                 stroke="currentColor"
                 className="w-8 h-8"
-                onClick={() =>
-                  addProductToCart({
-
-                    id,
-                    title,
-                    price,
-                    description,
-                    category,
-                    image,
-                    rate,
-                    count,
-                    quantity,
-                  }
-                  )
-                }
+                onClick={() => addProductToCart({
+                  id,
+                  title,
+                  price,
+                  description,
+                  category,
+                  image,
+                  rating,
+                  //quantity,
+                })}
               >
                 <path
                   stroke-linecap="round"

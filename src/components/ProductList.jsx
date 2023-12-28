@@ -1,13 +1,9 @@
-/* eslint-disable @next/next/no-img-element */
 import ProductCart from "./ProductCart";
 import ProductItem from "./ProductItem";
 
 export default function ProductList({
   products,
-  addProductToCart,
-  productsInCart,
-  updateProductQuantity,
-  removeProductFromCart
+  addProductToCart
 }) {
   return (
     <>
@@ -25,17 +21,7 @@ export default function ProductList({
               <div key={product.id}>
                 <ProductItem
                   addProductToCart={addProductToCart}
-
-
-                  id={product.id}
-                  title={product.title}
-                  price={product.price}
-                  description={product.description}
-                  category={product.category}
-                  image={product.image}
-                  rate={product.rating.rate}
-                  count={product.rating.count}
-                  quantity={product.quantity}
+                  {...product}
                 />
               </div>
             );
