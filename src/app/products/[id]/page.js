@@ -1,5 +1,5 @@
 "use client";
-import ProductItem from "@/components/ProductItem";
+import SingleProductPage from "@/components/SingleProductPage";
 import { useEffect, useState } from "react";
 
 
@@ -40,18 +40,18 @@ export default function Page({ params }) {
     return <div>Loading...</div>;
   }
 
-  const {
-    title,
-    price,
-    description,
-    category,
-    image,
-    rating 
-  } = product;
+  // const {
+  //   title,
+  //   price,
+  //   description,
+  //   category,
+  //   image,
+  //   rating 
+  // } = product;
 
   return (
-    <div key={params.id} className="mx-auto w-fit mt-20">
-      <ProductItem {...product} />
+    <div key={params.id} className="mx-auto w-fit ">
+      <SingleProductPage product={product} id={params.id}  />
     </div>
   );
 }

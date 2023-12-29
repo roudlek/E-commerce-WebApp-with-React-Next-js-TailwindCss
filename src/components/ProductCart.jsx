@@ -13,13 +13,16 @@ export default function ProductCart({
   // const [quantity, setQuantity] = useState(0);
 
   return (
-    <div className="relative h-10 w-full bg-gray-500 ">
+    <div className="relative h-10 w-full  ">
       <button
         type="button"
-        className="h-full px-2 bg-gray-800 hover:bg-gray-500 text-white font-normal top-0 right-0 absolute"
+        className="h-10 px-2  hover:bg-gray-500  font-normal top-28 right-0  fixed"
         onClick={() => setOpen(true)}
       >
-        Shopping Cart
+        Shopping Cart{" "}
+        {productsInCart.reduce((accumilator, current) => {
+          return accumilator + current.quantity;
+        }, 0)}
       </button>
       <Transition.Root show={open} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={setOpen}>

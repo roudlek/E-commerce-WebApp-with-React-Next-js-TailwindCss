@@ -15,6 +15,8 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <Navbar />
+        {/* this div create space between the fixed navbar and the content. so it doesnt cut like title ... */}
+        <div className="pt-[105px]" /> 
         {children}
         <Footer />
       </body>
