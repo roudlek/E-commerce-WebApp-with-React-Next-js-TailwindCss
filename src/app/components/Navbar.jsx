@@ -278,11 +278,11 @@ export default function Navbar() {
                 <div className="border-t border-gray-200 px-4 py-6">
                   <a href="#" className="-m-2 flex items-center p-2">
                     <img
-                      src="https://tailwindui.com/img/flags/flag-canada.svg"
+                      src="https://flagicons.lipis.dev/flags/4x3/ma.svg"
                       alt=""
                       className="block h-auto w-5 flex-shrink-0"
                     />
-                    <span className="ml-3 block text-base font-medium text-gray-900">CAD</span>
+                    <span className="ml-3 block text-base font-medium text-gray-900">MAD</span>
                     <span className="sr-only">, change currency</span>
                   </a>
                 </div>
@@ -434,11 +434,11 @@ export default function Navbar() {
                 <div className="hidden lg:ml-8 lg:flex">
                   <a href="#" className="flex items-center text-gray-700 hover:text-gray-800">
                     <img
-                      src="https://tailwindui.com/img/flags/flag-canada.svg"
+                      src="https://flagicons.lipis.dev/flags/4x3/ma.svg"
                       alt=""
                       className="block h-auto w-5 flex-shrink-0"
                     />
-                    <span className="ml-3 block text-sm font-medium">CAD</span>
+                    <span className="ml-3 block text-sm font-medium">MAD</span>
                     <span className="sr-only">, change currency</span>
                   </a>
                 </div>
