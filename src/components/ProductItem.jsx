@@ -13,10 +13,10 @@ export default function ProductItem({
 }) {
   return (
     <>
-      <div className="w-72 bg-white shadow-md rounded-xl duration-300 hover:scale-105 hover:shadow-xl">
+      <div className="w-72 bg-white shadow-md rounded-xl duration-300 hover:shadow-xl">
         <Link href={`/products/${id}`}>
           <Image
-            className="h-80 w-72 object-cover rounded-t-xl"
+            className="h-80 w-72 object-contain rounded-t-xl"
             src={image}
             alt={description}
             width={288}

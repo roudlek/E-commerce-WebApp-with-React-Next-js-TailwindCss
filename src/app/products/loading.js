@@ -1,4 +1,4 @@
 export default function Loading() {
     // Or a custom loading skeleton component
-    return <p>products page Loading...</p>
+    return <p>Loading products...</p>
   }

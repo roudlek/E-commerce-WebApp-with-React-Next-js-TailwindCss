@@ -2,9 +2,6 @@
 import SingleProductPage from "@/components/SingleProductPage";
 import { useEffect, useState } from "react";
 
-
-
-
 // try use this ::
 // export async function generateStaticParams() {
 //   const products = await fetch("https://fakestoreapi.com/products").then(
@@ -22,6 +19,7 @@ export default function Page({ params }) {
   const { id } = params;
   const [product, setProduct] = useState(null);
 
+  // step 2 // this runs after component mount
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -36,6 +34,7 @@ export default function Page({ params }) {
     fetchData();
   }, [id]);
 
+  // step 1
   if (!product) {
     return <div>Loading...</div>;
   }
@@ -49,6 +48,7 @@ export default function Page({ params }) {
   //   rating 
   // } = product;
 
+  // step 3
   return (
     <div key={params.id} className="mx-auto w-fit ">
       <SingleProductPage product={product} id={params.id}  />

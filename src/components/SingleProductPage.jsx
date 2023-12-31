@@ -1,19 +1,21 @@
 import ProductItem from "@/components/ProductItem";
 import Image from "next/image";
 
-export default function SingleProductPage({product, addProductToCart }) {
+export default function SingleProductPage({ product, addProductToCart }) {
   return (
     <section className="text-gray-700 body-font overflow-hidden bg-white">
       <div className="container px-5 py-24 mx-auto">
         <div className="lg:w-4/5 mx-auto flex flex-wrap">
-          <Image
-            alt="ecommerce"
-            className="lg:w-1/2 w-full h-auto object-cover object-center rounded border border-gray-200"
-            width={2000}
-            height={2000}
-            src={product.image}
-            priority={true}
-          />
+          <div className="lg:w-1/2 w-auto max-h-[600px] mx-auto">
+            <Image
+              alt="product picture"
+              className="object-contain w-full h-full rounded border border-gray-200"
+              width={2000}
+              height={2000}
+              src={product.image}
+              priority={true}
+            />
+          </div>
           <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
             <h2 className="text-sm title-font text-gray-500 tracking-widest">
               BRAND
@@ -156,9 +158,10 @@ export default function SingleProductPage({product, addProductToCart }) {
               <span className="title-font font-medium text-2xl text-gray-900 my-auto">
                 $ {product.price.toFixed(2)}
               </span>
-              <button 
-              onClick={()=>addProductToCart}
-              className="flex w-fit m-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">
+              <button
+                onClick={() => addProductToCart}
+                className="flex w-fit m-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"
+              >
                 Add to cart
               </button>
               <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">

@@ -1,7 +1,9 @@
 import { Inter } from "next/font/google";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
+
 import "./globals.css";
+import Navbar from "./components/Navbar";
+import Footer from "@/app/components/Footer";
+import DeliveryFullBaner from "./components/DelivryFullBanner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,8 +16,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
+        <DeliveryFullBaner/>
+        <div className="pt-[40px]" /> 
         <Navbar />
-        {/* this div create space between the fixed navbar and the content. so it doesnt cut like title ... */}
+        {/* this div create space between the fixed navbar and the content. so it doesnt cut like title for ex... */}
         <div className="pt-[105px]" /> 
         {children}
         <Footer />
