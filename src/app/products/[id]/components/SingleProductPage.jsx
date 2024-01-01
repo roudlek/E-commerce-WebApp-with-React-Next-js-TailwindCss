@@ -1,7 +1,33 @@
-import ProductItem from "@/components/ProductItem";
-import Image from "next/image";
+"use client";
 
-export default function SingleProductPage({ product, addProductToCart }) {
+import Image from "next/image";
+import { useEffect, useState } from "react";
+
+export default function SingleProductPage({ id }) {
+
+  const [product, setProduct] = useState(null);
+
+  // step 2 // this runs after component mount
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`https://fakestoreapi.com/products/${id}`);
+        const data = await response.json();
+        setProduct(data);
+      } catch (error) {
+        console.error("Error fetching product data:", error);
+      }
+    };
+
+    fetchData();
+  }, [id]);
+
+  // step 1
+  if (!product) {
+    return <div>Loading...</div>;
+  }
+
+
   return (
     <section className="text-gray-700 body-font overflow-hidden bg-white">
       <div className="container px-5 py-24 mx-auto">
@@ -156,10 +182,10 @@ export default function SingleProductPage({ product, addProductToCart }) {
             </div>
             <div className="flex">
               <span className="title-font font-medium text-2xl text-gray-900 my-auto">
-                $ {product.price.toFixed(2)}
+                $ {product.price}
               </span>
               <button
-                onClick={() => addProductToCart}
+                // onClick={() => addProductToCart}
                 className="flex w-fit m-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"
               >
                 Add to cart
