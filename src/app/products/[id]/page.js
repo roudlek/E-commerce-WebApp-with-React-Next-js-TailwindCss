@@ -1,6 +1,6 @@
 // "use client";
 // import { useEffect, useState } from "react";
-import SingleProductPage from "@/app/products/[id]/components/SingleProductPage";
+import SingleProductPage from "@/components/SingleProductPage";
 
 // try use this ::
 export async function generateStaticParams() {
@@ -9,9 +9,7 @@ export async function generateStaticParams() {
   );
 
   return products.map((product) => ({
-    params: {
-      id: product.id,
-    },
+      id: `${product.id}`,
   }));
 }
 
