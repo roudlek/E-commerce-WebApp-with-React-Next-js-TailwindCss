@@ -20,7 +20,7 @@ export default function Products() {
       // the returned value of first then goes to second then as param, the returned value of second then goes to third as param and so on ...
       // this ensure that data is availlable when going to next then (step)
       .then((data) => {
-        setProducts(data);
+        return setProducts(data);
       })
       .catch((error) => {
         console.log(`Could not get products, error: ${error}`);
