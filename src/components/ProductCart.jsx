@@ -1,16 +1,31 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
+import { getCart } from "@/app/products/_utils/cart";
 
 export default function ProductCart({
-  productsInCart,
-  open,
-  setOpen,
   removeProductFromCart,
   updateProductQuantity,
 }) {
-  // const [quantity, setQuantity] = useState(0);
+  const [productsInCart, setProductsInCart] = useState([]);
+  const [productsQuantity, setProductsQuantity] = useState(0);
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    // Fetch the initial cart data when the component mounts
+    const initialCart = getCart();
+    setProductsInCart(initialCart);
+  }, []); // Empty dependency array ensures this effect runs once on mount
+
+  useEffect(() => {
+    // Update productsQuantity when productsInCart changes
+    setProductsQuantity(
+      productsInCart.reduce((accumulator, current) => {
+        return accumulator + parseInt(current.quantity, 10);
+      }, 0)
+    );
+  }, [productsInCart]);
 
   return (
     <div className="relative h-10 w-full  ">
@@ -19,10 +34,7 @@ export default function ProductCart({
         className="h-10 px-2  hover:bg-gray-500  font-normal top-28 right-0  fixed"
         onClick={() => setOpen(true)}
       >
-        Shopping Cart{" "}
-        {productsInCart.reduce((accumilator, current) => {
-          return accumilator + current.quantity;
-        }, 0)}
+        Shopping Cart {productsQuantity}
       </button>
       <Transition.Root show={open} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={setOpen}>
@@ -217,23 +229,3 @@ export default function ProductCart({
     </div>
   );
 }
-// export default function ProductCart({ productsInCart }) {
-//   return (
-//     <div className="relative h-10 w-full">
-//       <div className="text-black  text-2xl absolute font-normal bg-white w-fit min-w-[300px] py-2 rounded-l-lg right-0 top-0">
-//         <div className="grid grid-cols-2">
-//           <h2 className="">Shopping cart</h2>
-//           <div>X</div>
-//         </div>
-
-//         {productsInCart.map((oneProduct) => {
-//           return (
-//             <li key={oneProduct.id} className="">
-//               {oneProduct.name}
-//             </li>
-//           );
-//         })}
-//       </div>
-//     </div>
-//   );
-// }

@@ -3,12 +3,13 @@ import Link from "next/link";
 
 export default function ProductItem({
   id,
+  category,
   title,
   price,
   description,
-  category,
   image,
   rating,
+  quantity,
   addProductToCart,
 }) {
   return (
@@ -24,7 +25,7 @@ export default function ProductItem({
           />
         </Link>
         <div className="px-4 py-3 w-72">
-          <span className="text-gray-400 mr-3 uppercase text-xs">Brand</span>
+          <span className="text-gray-400 mr-3 uppercase text-xs">{category}</span>
           <p className="text-lg font-bold text-black truncate block capitalize">
           {title}
           </p>
@@ -37,14 +38,14 @@ export default function ProductItem({
                 ${price * 2}
               </p>
             </del>
-            <div className="ml-auto mr-4 hover:bg-gray-500 rounded-full transition delay-150 duration-300 ease-in-out">
+            <div className="ml-auto mr-4 hover:bg-blue-500 rounded-full transition delay-150 duration-300 ease-in-out">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth="1.5"
                 stroke="currentColor"
-                className="w-8 h-8"
+                className="w-10 h-10 cursor-pointer"
                 onClick={() => addProductToCart({
                   id,
                   title,
@@ -53,8 +54,8 @@ export default function ProductItem({
                   category,
                   image,
                   rating,
-                  //quantity,
-                })}
+                  quantity,
+                })} 
               >
                 <path
                   strokeLinecap="round"
