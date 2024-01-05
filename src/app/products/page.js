@@ -3,10 +3,14 @@
 import { useEffect, useState } from "react";
 import ProductList from "../../components/ProductList";
 import ProductCart from "@/components/ProductCart";
-import {addProductToCartUsingLocalStorage, updateProductQuantityInLocalStorage} from "./_utils/cart";
+import {
+  addProductToCartUsingLocalStorage,
+  removeProductFromCart,
+  updateProductQuantityInLocalStorage,
+  getCart,
+} from "./_utils/cart";
 
 export default function Products() {
-  
   const [productsInCart, setProductsInCart] = useState([]);
   const [products, setProducts] = useState([]);
   async function fetchData() {
@@ -30,6 +34,7 @@ export default function Products() {
 
   useEffect(() => {
     fetchData();
+    getCart();
     return () => {};
   }, []);
 
@@ -41,49 +46,26 @@ export default function Products() {
     setProductsInCart(updatedCart);
   }
 
-  function handleUpdateProductCart(productId, quantity){
+  function handleUpdateProductCart(productId, quantity) {
     const updateCart = updateProductQuantityInLocalStorage(productId, quantity);
 
     setProductsInCart(updateCart);
   }
 
+  function handleRemoveProduct(productId) {
+    const updateCart = removeProductFromCart(productId);
 
-  function removeProductFromCart(productId) {
-    // Filter out the item to be removed
-    const updatedCart = productsInCart.filter((product) => {
-      if (product.id !== productId) {
-        return true; // Keep the product in the cart
-      } else {
-        return false; // Exclude the product with the specified ID
-      }
-    });
-
-    setProductsInCart(updatedCart);
+    setProductsInCart(updateCart);
   }
-
-  // function updateProductQuantity(productId, newQuantity) {
-  //   // Find the item to update
-  //   const updatedCart = productsInCart.map((product) => {
-  //     if (product.id === productId) {
-  //       product.quantity++;
-  //       return { ...product, quantity: newQuantity || 1 };
-  //     } else {
-  //       return product;
-  //     }
-  //   });
-
-  //   setProductsInCart(updatedCart);
-  // }
 
   return (
     <>
       <ProductCart
-        removeProductFromCart={removeProductFromCart}
+        removeProductFromCart={handleRemoveProduct}
         updateProductQuantity={handleUpdateProductCart}
       />
 
       <ProductList
-        productsInCart={productsInCart}
         products={products}
         addProductToCart={handleAddToCart}
       />

@@ -1,3 +1,4 @@
+"use client";
 import { Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
@@ -8,24 +9,30 @@ export default function ProductCart({
   removeProductFromCart,
   updateProductQuantity,
 }) {
-  const [productsInCart, setProductsInCart] = useState([]);
+  const initialCart = getCart();
+
+  const [productsInCart, setProductsInCart] = useState(initialCart);
   const [productsQuantity, setProductsQuantity] = useState(0);
   const [open, setOpen] = useState(false);
 
-  useEffect(() => {
-    // Fetch the initial cart data when the component mounts
-    const initialCart = getCart();
-    setProductsInCart(initialCart);
-  }, []); // Empty dependency array ensures this effect runs once on mount
-
-  useEffect(() => {
-    // Update productsQuantity when productsInCart changes
+  function updateProductCartSumQuantity() {
     setProductsQuantity(
-      productsInCart.reduce((accumulator, current) => {
+      initialCart.reduce((accumulator, current) => {
         return accumulator + parseInt(current.quantity, 10);
       }, 0)
     );
-  }, [productsInCart]);
+  }
+
+  useEffect(() => {
+    updateProductCartSumQuantity();
+  }, [initialCart]);
+
+  function initializeCartWithSet() {
+    setProductsInCart(initialCart);
+  }
+  useEffect(() => {
+    initializeCartWithSet();
+  }, [productsQuantity]);
 
   return (
     <div className="relative h-10 w-full  ">
@@ -108,7 +115,7 @@ export default function ProductCart({
                                         alt={product.description}
                                         width={96}
                                         height={96}
-                                        className="h-full w-full object-cover object-center"
+                                        className="h-full w-full object-contain"
                                       />
                                     </div>
 
@@ -124,7 +131,7 @@ export default function ProductCart({
                                             {product.price}$
                                           </p>
                                         </div>
-                                        <p className="mt-1 text-sm text-gray-500">
+                                        <p className="mt-2 mb-3 text-sm text-gray-500">
                                           Color
                                           {/* {product.color} */}
                                         </p>
@@ -133,7 +140,10 @@ export default function ProductCart({
                                         <button
                                           className="w-5 h-5 bg-gray-200 hover:bg-gray-300"
                                           onClick={() =>
-                                            updateProductQuantity(product.id, -1)
+                                            updateProductQuantity(
+                                              product.id,
+                                              -1
+                                            )
                                           }
                                         >
                                           {" "}
