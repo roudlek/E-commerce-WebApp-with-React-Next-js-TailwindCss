@@ -37,7 +37,6 @@ export default function ProductCart({
         Shopping Cart {productsQuantity}
       </button>
       <Transition.Root show={open} as={Fragment}>
-        updateProductQuantity
         <Dialog as="div" className="relative z-10" onClose={setOpen}>
           <Transition.Child
             as={Fragment}
