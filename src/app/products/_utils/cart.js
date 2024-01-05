@@ -6,19 +6,22 @@ export const getCart = () => {
   // Check if cartData is null or undefined
   if (!cartData) {
     // If it doesn't exist, initialize with an empty array
-    cartData = [{
-      "id": 0,
-      "title": "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
-      "price": 109.95,
-      "quantity": 1,
-      "description": "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
-      "category": "men's clothing",
-      "image": "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
-      "rating": {
-        "rate": 3.9,
-        "count": 120
-      }
-    }];
+    cartData = [
+      {
+        id: 0,
+        title: "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
+        price: 109.95,
+        quantity: 1,
+        description:
+          "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
+        category: "men's clothing",
+        image: "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
+        rating: {
+          rate: 3.9,
+          count: 120,
+        },
+      },
+    ];
   } else {
     // Parse the existing cart data
     cartData = JSON.parse(cartData);
@@ -35,7 +38,7 @@ export const updateCart = (newCart) => {
 //   localStorage.removeItem(CART_KEY);
 // };
 
-export default function addProductToCartUsingLocalStorage(newProduct) {
+export const addProductToCartUsingLocalStorage = (newProduct) => {
   let prevProductsInCart = getCart();
 
   // Check if prevProductsInCart is an array
@@ -80,4 +83,17 @@ export default function addProductToCartUsingLocalStorage(newProduct) {
   updateCart(prevProductsInCart);
 
   return prevProductsInCart;
+}
+
+export const updateProductQuantityInLocalStorage = (productId, quantity)=> {
+  // Find the item to update
+  let prevProductsInCart = getCart();
+
+  prevProductsInCart.map((product) => {
+    if (product.id === productId) {
+      product.quantity += quantity;
+    }
+    updateCart(prevProductsInCart);
+    return prevProductsInCart;
+  });
 }

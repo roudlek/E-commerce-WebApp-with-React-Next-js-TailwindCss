@@ -37,6 +37,7 @@ export default function ProductCart({
         Shopping Cart {productsQuantity}
       </button>
       <Transition.Root show={open} as={Fragment}>
+        updateProductQuantity
         <Dialog as="div" className="relative z-10" onClose={setOpen}>
           <Transition.Child
             as={Fragment}
@@ -133,10 +134,7 @@ export default function ProductCart({
                                         <button
                                           className="w-5 h-5 bg-gray-200 hover:bg-gray-300"
                                           onClick={() =>
-                                            updateProductQuantity(
-                                              product.id,
-                                              product.quantity - 1
-                                            )
+                                            updateProductQuantity(product.id, -1)
                                           }
                                         >
                                           {" "}
@@ -148,10 +146,7 @@ export default function ProductCart({
                                         <button
                                           className="w-5 h-5 bg-gray-200 hover:bg-gray-300"
                                           onClick={() =>
-                                            updateProductQuantity(
-                                              product.id,
-                                              product.quantity + 1
-                                            )
+                                            updateProductQuantity(product.id, 1)
                                           }
                                         >
                                           {" "}

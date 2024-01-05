@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import ProductList from "../../components/ProductList";
 import ProductCart from "@/components/ProductCart";
-import addProductToCartUsingLocalStorage, { getCart } from "./_utils/cart";
+import {addProductToCartUsingLocalStorage, updateProductQuantityInLocalStorage} from "./_utils/cart";
 
 export default function Products() {
   
@@ -41,6 +41,13 @@ export default function Products() {
     setProductsInCart(updatedCart);
   }
 
+  function handleUpdateProductCart(productId, quantity){
+    const updateCart = updateProductQuantityInLocalStorage(productId, quantity);
+
+    setProductsInCart(updateCart);
+  }
+
+
   function removeProductFromCart(productId) {
     // Filter out the item to be removed
     const updatedCart = productsInCart.filter((product) => {
@@ -54,25 +61,25 @@ export default function Products() {
     setProductsInCart(updatedCart);
   }
 
-  function updateProductQuantity(productId, newQuantity) {
-    // Find the item to update
-    const updatedCart = productsInCart.map((product) => {
-      if (product.id === productId) {
-        product.quantity++;
-        return { ...product, quantity: newQuantity || 1 };
-      } else {
-        return product;
-      }
-    });
+  // function updateProductQuantity(productId, newQuantity) {
+  //   // Find the item to update
+  //   const updatedCart = productsInCart.map((product) => {
+  //     if (product.id === productId) {
+  //       product.quantity++;
+  //       return { ...product, quantity: newQuantity || 1 };
+  //     } else {
+  //       return product;
+  //     }
+  //   });
 
-    setProductsInCart(updatedCart);
-  }
+  //   setProductsInCart(updatedCart);
+  // }
 
   return (
     <>
       <ProductCart
         removeProductFromCart={removeProductFromCart}
-        updateProductQuantity={updateProductQuantity}
+        updateProductQuantity={handleUpdateProductCart}
       />
 
       <ProductList
