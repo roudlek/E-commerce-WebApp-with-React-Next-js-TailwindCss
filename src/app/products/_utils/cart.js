@@ -1,25 +1,21 @@
 const CART_KEY = "shoppingCart";
 
 export const getCart = () => {
-  let cartData = localStorage.getItem(CART_KEY);
-
-  // Check if cartData exists in localStorage
-  if (!cartData) {
-    // If it doesn't exist, set an empty array in localStorage
-    localStorage.setItem(CART_KEY, JSON.stringify([{
-      "id": 1,
-      "title": "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
-      "price": 109.95,
-      "description": "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
-      "category": "men's clothing",
-      "image": "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
-      "quantity": 1,
-      "rating": {
-        "rate": 3.9,
-        "count": 120
-      }
-    }]));
+  let cartData;
+  if (typeof window !== "undefined" && window.localStorage) {
     cartData = localStorage.getItem(CART_KEY);
+
+    // Check if cartData exists in localStorage
+    if (!cartData) {
+      let products = [];
+      // If it doesn't exist, set an empty array in localStorage
+      localStorage.setItem(CART_KEY, JSON.stringify(products));
+      cartData = localStorage.getItem(CART_KEY);
+    }
+  } 
+  else {
+    cartData = "[]";
+    // console.log("Web Storage is not supported in this environment.");
   }
 
   return JSON.parse(cartData);
@@ -44,28 +40,11 @@ export const addProductToCartUsingLocalStorage = (newProduct) => {
 
   // Check if the item already exists in the cart
   // .find returns that found object, otherwise undefined
-  if (prevProductsInCart.length > 0) {
+  if (prevProductsInCart.length >= 0) {
     const existingProduct = prevProductsInCart.find((product) => {
       return product.id === newProduct.id;
     });
     if (existingProduct === undefined) {
-      // if product doesnt exist add that product
-      // prevProductsInCart = [
-      //   ...prevProductsInCart,
-      //   {
-      //     id: newProduct.id,
-      //     title: newProduct.title,
-      //     price: newProduct.price,
-      //     description: newProduct.description,
-      //     category: newProduct.category,
-      //     image: newProduct.image,
-      //     rating: {
-      //       rate: newProduct.rating.rate,
-      //       count: newProduct.rating.count,
-      //     },
-      //     quantity: 1, // Set the initial quantity to 1
-      //   },
-      // ];
       prevProductsInCart.push({
         id: newProduct.id,
         title: newProduct.title,

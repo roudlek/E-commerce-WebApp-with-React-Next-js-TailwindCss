@@ -1,38 +1,19 @@
 "use client";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
-import { getCart } from "@/app/products/_utils/cart";
 
 export default function ProductCart({
   removeProductFromCart,
   updateProductQuantity,
+  productsInCart,
 }) {
-  const initialCart = getCart();
-
-  const [productsInCart, setProductsInCart] = useState(initialCart);
-  const [productsQuantity, setProductsQuantity] = useState(0);
   const [open, setOpen] = useState(false);
 
-  function updateProductCartSumQuantity() {
-    setProductsQuantity(
-      initialCart.reduce((accumulator, current) => {
-        return accumulator + parseInt(current.quantity, 10);
-      }, 0)
-    );
-  }
-
-  useEffect(() => {
-    updateProductCartSumQuantity();
-  }, [initialCart]);
-
-  function initializeCartWithSet() {
-    setProductsInCart(initialCart);
-  }
-  useEffect(() => {
-    initializeCartWithSet();
-  }, [productsQuantity]);
+  const productsQuantity = productsInCart.reduce((accumulator, current) => {
+    return accumulator + parseInt(current.quantity, 10);
+  }, 0);
 
   return (
     <div className="relative h-10 w-full  ">

@@ -5,13 +5,15 @@ import ProductList from "../../components/ProductList";
 import ProductCart from "@/components/ProductCart";
 import {
   addProductToCartUsingLocalStorage,
+  getCart,
   removeProductFromCart,
   updateProductQuantityInLocalStorage,
-  getCart,
 } from "./_utils/cart";
 
+const initialCart = getCart();
+
 export default function Products() {
-  const [productsInCart, setProductsInCart] = useState([]);
+  const [productsInCart, setProductsInCart] = useState(initialCart);
   const [products, setProducts] = useState([]);
   async function fetchData() {
     await fetch("https://fakestoreapi.com/products")
@@ -34,9 +36,12 @@ export default function Products() {
 
   useEffect(() => {
     fetchData();
-    getCart();
     return () => {};
   }, []);
+
+  useEffect(()=>{
+    // edit here 
+  })
 
   function handleAddToCart(newProduct) {
     // Call the function to update local storage and get the updated cart
@@ -63,6 +68,7 @@ export default function Products() {
       <ProductCart
         removeProductFromCart={handleRemoveProduct}
         updateProductQuantity={handleUpdateProductCart}
+        productsInCart={productsInCart}
       />
 
       <ProductList
