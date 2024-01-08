@@ -2,10 +2,12 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { useCart } from "./ProductCartContext";
 
 export default function SingleProductPage({ id }) {
 
   const [product, setProduct] = useState(null);
+  const {addToCart} = useCart();
 
   // step 2 // this runs after component mount
   useEffect(() => {
@@ -185,7 +187,7 @@ export default function SingleProductPage({ id }) {
                 $ {product.price}
               </span>
               <button
-                // onClick={() => addProductToCart}
+                onClick={() => addToCart(product)}
                 className="flex w-fit m-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"
               >
                 Add to cart
