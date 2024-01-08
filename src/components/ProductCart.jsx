@@ -1,15 +1,22 @@
 "use client";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
+import { useCart } from "./ProductCartContext";
 
-export default function ProductCart({
-  removeProductFromCart,
-  updateProductQuantity,
-  productsInCart,
-}) {
+export default function ProductCart({}) {
   const [open, setOpen] = useState(false);
+  const {
+    productsInCart,
+    loadProductsInCart,
+    updateProductInCart,
+    removeProductFromCart,
+  } = useCart();
+
+  useEffect(() => {
+    loadProductsInCart();
+  }, []);
 
   const productsQuantity = productsInCart.reduce((accumulator, current) => {
     return accumulator + parseInt(current.quantity, 10);
@@ -121,7 +128,7 @@ export default function ProductCart({
                                         <button
                                           className="w-5 h-5 bg-gray-200 hover:bg-gray-300"
                                           onClick={() =>
-                                            updateProductQuantity(
+                                            updateProductInCart(
                                               product.id,
                                               -1
                                             )
@@ -136,7 +143,10 @@ export default function ProductCart({
                                         <button
                                           className="w-5 h-5 bg-gray-200 hover:bg-gray-300"
                                           onClick={() =>
-                                            updateProductQuantity(product.id, 1)
+                                            updateProductInCart(
+                                              product.id,
+                                              1
+                                            )
                                           }
                                         >
                                           {" "}

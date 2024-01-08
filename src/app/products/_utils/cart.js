@@ -94,7 +94,7 @@ export const updateProductQuantityInLocalStorage = (productId, quantity) => {
   return prevProductsInCart;
 };
 
-export const removeProductFromCart = (productId) => {
+export const removeProductFromCartOfLocalStorage = (productId) => {
   let prevProductsInCart = getCart();
 
   prevProductsInCart = prevProductsInCart.filter((product) => {
