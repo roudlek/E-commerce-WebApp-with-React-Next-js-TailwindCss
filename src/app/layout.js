@@ -26,7 +26,7 @@ export default function RootLayout({ children }) {
 
           {/* this div create space between the fixed navbar and the content. so it doesnt cut like title for ex... */}
           <div className="pt-[105px]" />
-          <ThemeButton/>
+          {/* <ThemeButton/> */}
           {children}
           <Footer />
         </CartProvider>

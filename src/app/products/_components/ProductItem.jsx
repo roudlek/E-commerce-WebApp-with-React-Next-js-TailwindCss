@@ -37,11 +37,11 @@ export default function ProductItem({
             <p className="text-lg font-semibold text-black cursor-auto my-3">
               ${price}
             </p>
-            <del>
+            <div>
               <p className="text-sm text-gray-600 cursor-auto ml-2">
                 ${price * 2}
               </p>
-            </del>
+            </div>
             <div className="ml-auto mr-4 hover:bg-blue-500 rounded-full transition delay-150 duration-300 ease-in-out">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
