@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { useCart } from "./ProductCartContext";
+import { useCart } from "../../../_contexts/ProductCartContext";
 
 export default function SingleProductPage({ id }) {
 

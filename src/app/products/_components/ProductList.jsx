@@ -1,5 +1,6 @@
+"use client"
 import { useEffect, useState } from "react";
-import { useCart } from "./ProductCartContext";
+import { useCart } from "../../_contexts/ProductCartContext";
 import ProductItem from "./ProductItem";
 
 export default function ProductList() {
@@ -55,10 +56,6 @@ export default function ProductList() {
           );
         })}
       </section>
-
-      <div>
-        <ul className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-1"></ul>
-      </div>
     </>
   );
 }

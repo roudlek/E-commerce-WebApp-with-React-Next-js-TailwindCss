@@ -3,7 +3,7 @@ import { Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
-import { useCart } from "./ProductCartContext";
+import { useCart } from "../_contexts/ProductCartContext";
 
 export default function ProductCart({}) {
   const [open, setOpen] = useState(false);

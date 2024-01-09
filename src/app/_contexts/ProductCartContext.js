@@ -1,10 +1,10 @@
 "use client";
 import {
-  addProductToCartUsingLocalStorage,
   getCart,
+  addProductToCartUsingLocalStorage,
   removeProductFromCartOfLocalStorage,
   updateProductQuantityInLocalStorage,
-} from "@/app/products/_utils/cart";
+} from "@/app/_utils/cart";
 import { createContext, useContext, useState } from "react";
 
 const CartContext = createContext();
