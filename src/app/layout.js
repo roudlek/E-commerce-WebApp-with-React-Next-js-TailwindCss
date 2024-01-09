@@ -2,9 +2,10 @@ import { Inter } from "next/font/google";
 
 import "./globals.css";
 import Navbar from "./_components/Navbar";
-import Footer from "@/app/_components/Footer";
+import Footer from "./_components/Footer";
 import DeliveryFullBaner from "./_components/DelivryFullBanner";
-import { CartProvider } from "@/app/_contexts/ProductCartContext";
+import { CartProvider } from "./_contexts/ProductCartContext";
+import ThemeButton from "./_components/XstateThemeButton";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,6 +26,7 @@ export default function RootLayout({ children }) {
 
           {/* this div create space between the fixed navbar and the content. so it doesnt cut like title for ex... */}
           <div className="pt-[105px]" />
+          <ThemeButton/>
           {children}
           <Footer />
         </CartProvider>

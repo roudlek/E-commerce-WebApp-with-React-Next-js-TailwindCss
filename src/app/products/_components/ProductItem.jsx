@@ -12,6 +12,8 @@ export default function ProductItem({
   quantity,
   addProductToCart,
 }) {
+  // title was loong so lets split it to three words
+  const shortenedTitle = title.split(" ").slice(0, 3).join(" ");
   return (
     <>
       <div className="w-72 bg-white shadow-md rounded-xl duration-300 hover:shadow-xl">
@@ -25,9 +27,11 @@ export default function ProductItem({
           />
         </Link>
         <div className="px-4 py-3 w-72">
-          <span className="text-gray-400 mr-3 uppercase text-xs">{category}</span>
+          <span className="text-gray-400 mr-3 uppercase text-xs">
+            {category}
+          </span>
           <p className="text-lg font-bold text-black truncate block capitalize">
-          {title}
+            {shortenedTitle}
           </p>
           <div className="flex items-center">
             <p className="text-lg font-semibold text-black cursor-auto my-3">
@@ -46,16 +50,18 @@ export default function ProductItem({
                 strokeWidth="1.5"
                 stroke="currentColor"
                 className="w-10 h-10 cursor-pointer"
-                onClick={() => addProductToCart({
-                  id,
-                  title,
-                  price,
-                  description,
-                  category,
-                  image,
-                  rating,
-                  quantity,
-                })} 
+                onClick={() =>
+                  addProductToCart({
+                    id,
+                    title,
+                    price,
+                    description,
+                    category,
+                    image,
+                    rating,
+                    quantity,
+                  })
+                }
               >
                 <path
                   strokeLinecap="round"

@@ -45,7 +45,7 @@ export const addProductToCartUsingLocalStorage = (newProduct) => {
       return product.id === newProduct.id;
     });
     if (existingProduct === undefined) {
-      prevProductsInCart.push({
+      prevProductsInCart.unshift({
         id: newProduct.id,
         title: newProduct.title,
         price: newProduct.price,

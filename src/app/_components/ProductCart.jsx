@@ -1,7 +1,7 @@
 "use client";
 import { Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { XMarkIcon } from "@heroicons/react/24/outline";
+import { ShoppingBagIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import { useCart } from "../_contexts/ProductCartContext";
 
@@ -24,13 +24,29 @@ export default function ProductCart({}) {
 
   return (
     <div className="relative h-10 w-full  ">
-      <button
+      <div className="ml-4 flow-root lg:ml-6 mt-4">
+        <button
+          onClick={() => setOpen(true)}
+          className="group -m-2 flex items-center p-2"
+        >
+          <ShoppingBagIcon
+            className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
+            aria-hidden="true"
+          />
+          {/* shopping cart */}
+
+          <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
+            {productsQuantity}
+          </span>
+          <span className="sr-only">items in cart, view bag</span>
+        </button>
+      </div>
+      {/* <button
         type="button"
         className="h-10 px-2  hover:bg-gray-500  font-normal top-28 right-0  fixed"
-        onClick={() => setOpen(true)}
       >
         Shopping Cart {productsQuantity}
-      </button>
+      </button> */}
       <Transition.Root show={open} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={setOpen}>
           <Transition.Child
@@ -128,10 +144,7 @@ export default function ProductCart({}) {
                                         <button
                                           className="w-5 h-5 bg-gray-200 hover:bg-gray-300"
                                           onClick={() =>
-                                            updateProductInCart(
-                                              product.id,
-                                              -1
-                                            )
+                                            updateProductInCart(product.id, -1)
                                           }
                                         >
                                           {" "}
@@ -143,10 +156,7 @@ export default function ProductCart({}) {
                                         <button
                                           className="w-5 h-5 bg-gray-200 hover:bg-gray-300"
                                           onClick={() =>
-                                            updateProductInCart(
-                                              product.id,
-                                              1
-                                            )
+                                            updateProductInCart(product.id, 1)
                                           }
                                         >
                                           {" "}

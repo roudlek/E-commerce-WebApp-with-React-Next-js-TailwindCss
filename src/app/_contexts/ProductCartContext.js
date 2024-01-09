@@ -4,7 +4,7 @@ import {
   addProductToCartUsingLocalStorage,
   removeProductFromCartOfLocalStorage,
   updateProductQuantityInLocalStorage,
-} from "@/app/_utils/cart";
+} from "../_utils/cart";
 import { createContext, useContext, useState } from "react";
 
 const CartContext = createContext();

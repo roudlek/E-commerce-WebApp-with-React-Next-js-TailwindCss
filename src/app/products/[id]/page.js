@@ -1,4 +1,4 @@
-import SingleProductPage from "@/app/products/[id]/_components/SingleProductPage";
+import SingleProductPage from "./_components/SingleProductPage";
 
 export async function generateStaticParams() {
   const products = await fetch("https://fakestoreapi.com/products").then(
