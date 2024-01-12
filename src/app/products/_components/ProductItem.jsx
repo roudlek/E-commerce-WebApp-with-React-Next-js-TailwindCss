@@ -35,11 +35,11 @@ export default function ProductItem({
           </p>
           <div className="flex items-center">
             <p className="text-lg font-semibold text-black cursor-auto my-3">
-              ${price}
+              {price} DH
             </p>
             <div>
-              <p className="text-sm text-gray-600 cursor-auto ml-2">
-                ${price * 2}
+              <p className="text-sm text-gray-600 line-through cursor-auto ml-2">
+                {price * 2} DH
               </p>
             </div>
             <div className="ml-auto mr-4 hover:bg-blue-500 rounded-full transition delay-150 duration-300 ease-in-out">

@@ -5,9 +5,8 @@ import { useEffect, useState } from "react";
 import { useCart } from "../../../_contexts/ProductCartContext";
 
 export default function SingleProductPage({ id }) {
-
   const [product, setProduct] = useState(null);
-  const {addToCart} = useCart();
+  const { addToCart } = useCart();
 
   // step 2 // this runs after component mount
   useEffect(() => {
@@ -28,7 +27,6 @@ export default function SingleProductPage({ id }) {
   if (!product) {
     return <div>Loading...</div>;
   }
-
 
   return (
     <section className="text-gray-700 body-font overflow-hidden bg-white">
@@ -155,7 +153,7 @@ export default function SingleProductPage({ id }) {
                 <span className="mr-3">Color</span>
                 <button className="border-2 border-gray-300 rounded-full w-6 h-6 focus:outline-none"></button>
                 <button className="border-2 border-gray-300 ml-1 bg-gray-700 rounded-full w-6 h-6 focus:outline-none"></button>
-                <button className="border-2 border-gray-300 ml-1 bg-red-500 rounded-full w-6 h-6 focus:outline-none"></button>
+                <button className="border-2 border-gray-300 ml-1 bg-blue-500 rounded-full w-6 h-6 focus:outline-none"></button>
               </div>
               <div className="flex ml-6 items-center">
                 <span className="mr-3">Size</span>
@@ -184,11 +182,11 @@ export default function SingleProductPage({ id }) {
             </div>
             <div className="flex">
               <span className="title-font font-medium text-2xl text-gray-900 my-auto">
-                $ {product.price}
+                {product.price} DH
               </span>
               <button
                 onClick={() => addToCart(product)}
-                className="flex w-fit m-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"
+                className="flex w-fit m-auto text-white bg-indigo-600 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-800 rounded"
               >
                 Add to cart
               </button>

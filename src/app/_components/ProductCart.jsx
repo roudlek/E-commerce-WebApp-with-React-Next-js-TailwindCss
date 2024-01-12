@@ -4,6 +4,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { ShoppingBagIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import { useCart } from "../_contexts/ProductCartContext";
+import Link from "next/link";
 
 export default function ProductCart({}) {
   const [open, setOpen] = useState(false);
@@ -23,7 +24,7 @@ export default function ProductCart({}) {
   }, 0);
 
   return (
-    <div className="relative h-10 w-full  ">
+    <div className="relative h-10 w-full z-50">
       <div className="ml-4 flow-root lg:ml-6 mt-4">
         <button
           onClick={() => setOpen(true)}
@@ -48,7 +49,7 @@ export default function ProductCart({}) {
         Shopping Cart {productsQuantity}
       </button> */}
       <Transition.Root show={open} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={setOpen}>
+        <Dialog as="div" className="relative z-40" onClose={setOpen}>
           <Transition.Child
             as={Fragment}
             enter="ease-in-out duration-500"
@@ -128,11 +129,14 @@ export default function ProductCart({}) {
                                         <div className="flex justify-between text-base font-medium text-gray-900">
                                           <h3>
                                             <a href={product.href}>
-                                              {product.title}
+                                              {product.title
+                                                .split(" ")
+                                                .slice(0, 3)
+                                                .join(" ")}
                                             </a>
                                           </h3>
                                           <p className="ml-4">
-                                            {product.price}$
+                                            {product.price} DH
                                           </p>
                                         </div>
                                         <p className="mt-2 mb-3 text-sm text-gray-500">
@@ -195,19 +199,20 @@ export default function ProductCart({}) {
                                 );
                               }, 0)
                               .toFixed(2)}
-                            $
+                             {" "}DH
                           </p>
                         </div>
                         <p className="mt-0.5 text-sm text-gray-500">
                           Shipping and taxes calculated at checkout.
                         </p>
                         <div className="mt-6">
-                          <a
-                            href="#"
+                          <Link
+                            href="/checkout"
+                            onClick={() => setOpen(false)}
                             className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
                           >
                             Checkout
-                          </a>
+                          </Link>
                         </div>
                         <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
                           <p>

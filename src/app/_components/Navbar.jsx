@@ -147,7 +147,7 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="bg-white fixed w-full">
+    <div className="bg-white fixed w-full z-30">
       {/* Mobile menu */}
       <Transition.Root show={open} as={Fragment}>
         <Dialog as="div" className="relative z-40 lg:hidden" onClose={setOpen}>
@@ -347,8 +347,9 @@ export default function Navbar() {
                   <span className="sr-only">E-commerce</span>
                   <img
                     className="h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                    alt=""
+                    src=""
+                    // src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                    alt="Logo"
                   />
                 </a>
               </div>
