@@ -32,7 +32,7 @@ export default function SingleProductPage({ id }) {
     <section className="text-gray-700 body-font overflow-hidden bg-white">
       <div className="container px-5 py-24 mx-auto">
         <div className="lg:w-4/5 mx-auto flex flex-wrap">
-          <div className="lg:w-1/2 w-full min-w-[350px] max-h-[600px] mx-auto rounded border border-gray-200">
+          <div className="lg:w-1/2 w-full min-w-[300px] max-h-[600px] mx-auto rounded border border-gray-200">
             <Image
               alt="product picture"
               className="object-contain w-full h-full "
@@ -186,7 +186,7 @@ export default function SingleProductPage({ id }) {
               </span>
               <button
                 onClick={() => addToCart(product)}
-                className="flex w-fit m-auto text-white bg-indigo-600 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-800 rounded"
+                className="flex w-fit m-auto text-white bg-customDarkBlue border-0 py-2 px-6 focus:outline-none hover:bg-customDarkViolet rounded"
               >
                 Add to cart
               </button>

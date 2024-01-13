@@ -25,7 +25,7 @@ export default function RootLayout({ children }) {
           <Navbar />
 
           {/* this div create space between the fixed navbar and the content. so it doesnt cut like title for ex... */}
-          <div className="pt-[105px]" />
+          <div className="pt-[65px]" />
           {/* <ThemeButton/> */}
           <div className="min-h-screen">
           {children}

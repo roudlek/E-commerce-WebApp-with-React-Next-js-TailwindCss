@@ -135,7 +135,7 @@ export default function ProductCart({}) {
                                                 .join(" ")}
                                             </a>
                                           </h3>
-                                          <p className="ml-4">
+                                          <p className="ml-4 ">
                                             {product.price} DH
                                           </p>
                                         </div>
@@ -170,7 +170,7 @@ export default function ProductCart({}) {
                                         <div className="flex">
                                           <button
                                             type="button"
-                                            className="font-medium text-indigo-600 hover:text-indigo-500"
+                                            className="font-medium text-customDarkBlue hover:text-customDarkViolet"
                                             onClick={() =>
                                               removeProductFromCart(product.id)
                                             }
@@ -209,14 +209,14 @@ export default function ProductCart({}) {
                           <Link
                             href="/checkout"
                             onClick={() => setOpen(false)}
-                            className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                            className="flex items-center justify-center rounded-md border border-transparent bg-customDarkBlue px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-customDarkViolet"
                           >
                             Checkout
                           </Link>
                         </div>
                         <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
                           <p>
-                            or
+                            or {" "}
                             <button
                               type="button"
                               className="font-medium text-indigo-600 hover:text-indigo-500"

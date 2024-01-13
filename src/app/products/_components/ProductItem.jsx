@@ -42,14 +42,9 @@ export default function ProductItem({
                 {price * 2} DH
               </p>
             </div>
-            <div className="ml-auto mr-4 hover:bg-blue-500 rounded-full transition delay-150 duration-300 ease-in-out">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                className="w-10 h-10 cursor-pointer"
+            <div className="ml-auto mr-4 ">
+              <button
+                className=" border-black border w-auto px-4 py-[2px] hover:px-5 hover:py-1 bg-white rounded-full transition duration-0 hover:duration-300 ease-in-out "
                 onClick={() =>
                   addProductToCart({
                     id,
@@ -63,12 +58,14 @@ export default function ProductItem({
                   })
                 }
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                <Image
+                  className="m-auto"
+                  width={20}
+                  height={20}
+                  alt="add to cart svg"
+                  src="/addtocart.svg"
                 />
-              </svg>
+              </button>
             </div>
           </div>
         </div>

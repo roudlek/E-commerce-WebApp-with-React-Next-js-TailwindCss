@@ -8,6 +8,7 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import ProductCart from "./ProductCart";
+import Link from "next/link";
 
 const navigation = {
   categories: [
@@ -343,15 +344,15 @@ export default function Navbar() {
 
               {/* Logo */}
               <div className="ml-4 flex lg:ml-0">
-                <a href="#">
+                <Link href="/">
                   <span className="sr-only">E-commerce</span>
                   <img
                     className="h-8 w-auto"
-                    src=""
+                    src="/icons8-shop-64.png"
                     // src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
                     alt="Logo"
                   />
-                </a>
+                </Link>
               </div>
 
               {/* Flyout menus */}

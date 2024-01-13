@@ -1,11 +1,10 @@
 "use client";
 import { useCart } from "@/app/_contexts/ProductCartContext";
-import html2canvas from "html2canvas";
+// import html2canvas from "html2canvas";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-// Import necessary modules and components
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FaWhatsapp, FaStripe, FaPaypal, FaApple } from "react-icons/fa";
 
 export default function Checkout() {
@@ -53,28 +52,17 @@ export default function Checkout() {
     router.push(url);
   }
 
-  // async function captureScreenshot() {
-  //   const cartElement = document.getElementById("cart"); // Replace 'cart' with the actual ID or class of your cart div
-  //   if (cartElement) {
-  //     const canvas = await html2canvas(cartElement);
-  //     return canvas.toDataURL("image/png");
-  //   } else {
-  //     console.error("Cart element not found");
-  //     return null;
-  //   }
-  // }
-
   const subTotal = productsInCart
     .reduce((accumilator, current) => {
       return accumilator + current.price * current.quantity;
     }, 0)
     .toFixed(2);
 
-  const taxes = productsInCart
-    .reduce((accumilator, current) => {
-      return (accumilator + current.price * current.quantity) * 0.05;
-    }, 0)
-    .toFixed(2);
+  const taxes = (
+    productsInCart.reduce((accumilator, current) => {
+      return accumilator + current.price * current.quantity;
+    }, 0) * 0.05
+  ).toFixed(2);
 
   function getShippingCost() {
     const shippingCost = productsInCart
@@ -90,23 +78,12 @@ export default function Checkout() {
     parseFloat(getShippingCost())
   ).toFixed(2);
 
-  //   useEffect(()=>{
-  //     console.log("shipping is :",getShippingCost());
-  //     console.log("taxes are :",taxes);
-  //     console.log("subtotal is :",subTotal);
-  //     console.log("total is :",total);
-
-  //   })
-
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto mb-4">
       {/* <h1 className="text-2xl font-bold mb-8 ml-5">Checkout Page</h1> */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Product Cart Section */}
-        <div
-          id="cart"
-          className="flex h-full flex-col overflow-y-scroll bg-zinc-100 "
-        >
+        <div id="cart" className="flex h-full flex-col bg-zinc-100 ">
           <div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
             <div className="flex items-start justify-between">
               <div className="text-lg font-medium text-gray-900">
@@ -178,7 +155,7 @@ export default function Checkout() {
                             <div className="flex">
                               <button
                                 type="button"
-                                className="font-medium text-indigo-600 hover:text-indigo-500"
+                                className="font-medium text-customDarkBlue hover:text-customDarkViolet"
                                 onClick={() =>
                                   removeProductFromCart(product.id)
                                 }
@@ -234,25 +211,9 @@ export default function Checkout() {
             </div>
           </div>
         </div>
-        {/* <div>
-          <h2 className="text-xl font-bold mb-4">Your Cart</h2>
-          <ul>
-            {productsInCart.map((product) => (
-              <li key={product.id} className="flex justify-between mb-2">
-                <span>{product.title}</span>
-                <span>{product.price}$ * {product.quantity}</span>
-                <span>{product.image}</span>
-              </li>
-            ))}
-          </ul>
-        </div> */}
-
-        {/* Checkout Form Section */}
         <div>
-          {/* <form onSubmit={sendDataViaWhatsApp()} className="space-y-4 mx-4"> */}
-
           <form onSubmit={sendDataViaWhatsApp} className="space-y-4 mx-4">
-            <h2 className="mb-4 text-xl font-semibold text-gray-900">
+            <h2 className="my-4 text-xl font-semibold text-gray-900">
               Shipping information
             </h2>
             <div className="mb-4">
