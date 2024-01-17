@@ -9,9 +9,6 @@
 # testing
 /coverage
 
-# react email
-/.react-email/
-
 # next.js
 /.next/
 /out/
