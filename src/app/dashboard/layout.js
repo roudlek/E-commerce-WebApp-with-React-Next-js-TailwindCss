@@ -11,7 +11,7 @@ export default function DashboardLayout({
   return (
     <section className="p-5 m-5 bg-red-200 rounded-lg">
       <p className="text-black font-extrabold text-xl mb-5">
-        Dashboard layout power, anything inside dashboard folder will keep that
+        Dashboard layout power, anything inside dashboard folder will maintain that
         red background
       </p>
       {/* Include shared UI here e.g. a header or sidebar */}

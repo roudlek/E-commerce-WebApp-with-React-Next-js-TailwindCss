@@ -1,5 +1,10 @@
 import SingleProductPage from "./_components/SingleProductPage";
 
+export const metadata = {
+  title: "Single product",
+  description: "Single product page",
+};
+
 export async function generateStaticParams() {
   const products = await fetch("https://fakestoreapi.com/products").then(
     (res) => res.json()

@@ -5,17 +5,64 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { FaWhatsapp, FaStripe, FaPaypal, FaApple } from "react-icons/fa";
+import {
+  FaWhatsapp,
+  FaStripe,
+  FaPaypal,
+  FaApple,
+  FaAddressBook,
+} from "react-icons/fa";
+
+export const metadata = {
+  title: "Checkout",
+  description: "checkout page",
+};
 
 export default function Checkout() {
   const { productsInCart, updateProductInCart, removeProductFromCart } =
     useCart();
   const [formData, setFormData] = useState({
     name: "",
+    email: "",
     numberPhone: "",
     address: "",
-    // Add more fields as needed
   });
+  const [currentMethod, setCurrentMethod] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const handleSendDataViaEmailResend = async () => {
+    // console.log(JSON.stringify(formData));
+    try {
+      setLoading(true); // Set loading to true when starting the async operation
+
+      const response = await fetch("/api/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          numberPhone: formData.numberPhone,
+          address: formData.address,
+          productsInCart: productsInCart,
+        }),
+      });
+
+      if (response.ok) {
+        console.log("Order placed successfully!");
+        router.push("/success");
+        // Handle success, e.g., redirect to a thank you page
+      } else {
+        console.error("Error placing order:", response.statusText);
+        // Handle error, show an error message to the user
+      }
+    } catch (error) {
+      console.error("Error placing order:", error);
+    } finally {
+      setLoading(false); // Set loading back to false after the async operation completes
+    }
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -51,6 +98,17 @@ export default function Checkout() {
 
     router.push(url);
   }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Check which button was clicked and execute the associated method
+    if (currentMethod === "EmailResend") {
+      handleSendDataViaEmailResend();
+    } else if (currentMethod === "WhatsApp") {
+      sendDataViaWhatsApp();
+    }
+    // Default method (can be changed based on the button clicked)
+    else console.log("Default method:", formData);
+  };
 
   const subTotal = productsInCart
     .reduce((accumilator, current) => {
@@ -212,7 +270,7 @@ export default function Checkout() {
           </div>
         </div>
         <div>
-          <form onSubmit={sendDataViaWhatsApp} className="space-y-4 mx-4">
+          <form onSubmit={handleSubmit} className="space-y-4 mx-4">
             <h2 className="my-4 text-xl font-semibold text-gray-900">
               Shipping information
             </h2>
@@ -234,6 +292,27 @@ export default function Checkout() {
                 }
                 onInput={(e) => e.target.setCustomValidity("")}
                 pattern="^[A-Za-z ]{3,20}$"
+              />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="email" className="block text-sm font-medium mb-1">
+                Email:
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleInputChange}
+                className="w-full border rounded-md p-2"
+                required
+                onInvalid={(e) =>
+                  e.target.setCustomValidity(
+                    "Please enter a valid email address"
+                  )
+                }
+                onInput={(e) => e.target.setCustomValidity("")}
+                pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"
               />
             </div>
 
@@ -287,9 +366,43 @@ export default function Checkout() {
             </div>
 
             {/* Add more form fields as needed */}
-
             <button
               type="submit"
+              onClick={() => {
+                setCurrentMethod("EmailResend");
+              }}
+              className={`flex items-center justify-center bg-gray-700 hover:bg-gray-900 text-white w-full px-4 py-2 rounded-md ${
+                loading ? "opacity-50 cursor-not-allowed" : ""
+              }`}
+              disabled={loading}
+            >
+              {loading ? (
+                <div className="animate-spin mr-2">
+                  {/* Add a spinning animation or loading indicator here */}
+                  <Image width={20} height={20} alt="loading image" src="/loading.png" />
+                </div>
+              ) : (
+                <>
+                  <FaAddressBook className="mr-2" />
+                  Place Order using Email
+                </>
+              )}
+            </button>
+            {/* <button
+              type="submit"
+              onClick={() => {
+                setCurrentMethod("EmailResend");
+              }}
+              className="flex items-center justify-center bg-gray-700 hover:bg-gray-900 text-white w-full px-4 py-2 rounded-md"
+            >
+              <FaAddressBook className="mr-2" />
+              Place Order using Email
+            </button> */}
+            <button
+              type="submit"
+              onClick={() => {
+                setCurrentMethod("WhatsApp");
+              }}
               className="flex items-center justify-center bg-green-600 hover:bg-green-700 text-white w-full px-4 py-2 rounded-md"
             >
               <FaWhatsapp className="mr-2" />
@@ -314,6 +427,8 @@ export default function Checkout() {
               <FaApple className="mr-2 " />
             </button>
           </form>
+
+          {/* Add more form fields as needed */}
         </div>
       </div>
     </div>
