@@ -2,18 +2,18 @@
 import { EmailTemplate } from "@/components/email-template";
 import { Resend } from "resend";
 
-const resend = new Resend("re_9YrRkJhi_D6Ppqk14cPkzqYgCNKHzvteZ");
+const resend = new Resend(process.env.RESEND_API_KEY);
 // const resend = new Resend(process.env.NEXT_PUBLIC_RESEND_API_KEY);
 
 export async function POST(request: Request) {
   //   if (req.method === "POST") {
-  const { name, email, numberPhone, address, productsInCart} = await request.json();
+  const { name, numberPhone, address, productsInCart} = await request.json();
 
   try {
     const data = await resend.emails.send({
-      from: "Acme <onboarding@resend.dev>",
-      to: [email],
-      subject: "Your order is on its way",
+      from: "Contact Form <onboarding@resend.dev>",
+      to: ["elidrissiabdalaziz@gmail.com"],
+      subject: "New order from your ecommerce app",
       react: EmailTemplate({
         name: name,
         numberPhone: numberPhone,
