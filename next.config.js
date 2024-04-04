@@ -23,38 +23,29 @@ const nextConfig = {
   //   ];
   // },
 
-  output: "export", // Add this line to enable static export
-  output: "export", // Add this line to enable static export
+  // output: "export", // Add this line to enable static export
   images: {
-    domains: [
-      "tailwindui.com",
-      "fakestoreapi.com",
-      "images.unsplash.com"
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "tailwindui.com",
+        port: "",
+        pathname: "/img/**",
+      },
+      {
+        protocol: "https",
+        hostname: "fakestoreapi.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+        port: "",
+        pathname: "/**",
+      },
     ],
   },
 };
-  //   images: {
-//     remotePatterns: [
-//       {
-//         protocol: "https",
-//         hostname: "tailwindui.com",
-//         port: "",
-//         pathname: "/img/**",
-//       },
-//       {
-//         protocol: "https",
-//         hostname: "fakestoreapi.com",
-//         port: "",
-//         pathname: "/**",
-//       },
-//       {
-//         protocol: "https",
-//         hostname: "images.unsplash.com",
-//         port: "",
-//         pathname: "/**",
-//       },
-//     ],
-//   },
-// };
 
 module.exports = nextConfig;
