@@ -6,6 +6,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: Request) {
   //   if (req.method === "POST") {
+    
   const { name, numberPhone, address, productsInCart} = await request.json();
 
   try {

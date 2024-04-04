@@ -30,10 +30,16 @@ export default function Checkout() {
   const [currentMethod, setCurrentMethod] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const handleSendDataViaEmailResend = async () => {
+  const handleSendDataViaEmailResend = async (req, res) => {
+    "use server"
     // console.log(JSON.stringify(formData));
     try {
       setLoading(true); // Set loading to true when starting the async operation
+
+      // Set CORS headers
+      res.setHeader("Access-Control-Allow-Origin", "*"); // Allow requests from any origin
+      res.setHeader("Access-Control-Allow-Methods", "POST"); // Allow POST requests
+      res.setHeader("Access-Control-Allow-Headers", "Content-Type"); // Allow headers
 
       const response = await fetch("/api/send", {
         method: "POST",
@@ -379,7 +385,12 @@ export default function Checkout() {
               {loading ? (
                 <div className="animate-spin mr-2">
                   {/* Add a spinning animation or loading indicator here */}
-                  <Image width={20} height={20} alt="loading image" src="/loading.png" />
+                  <Image
+                    width={20}
+                    height={20}
+                    alt="loading image"
+                    src="/loading.png"
+                  />
                 </div>
               ) : (
                 <>
